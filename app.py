@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-
+from os import system
 import torch
 
 #DATA
@@ -8,14 +8,30 @@ import torch
 #success     = [ 100, 100, 95, 75,  50, 20, 0  ]      # % syccessfully completed projects                             y = success = [0; 100]
 
 
-X = torch.tensor( [[ 4,   6,   8,  12,  16, 20, 22 ], [ 5, 4, 6, 7, 9, 33, 76 ]], dtype = torch.float32 )
+X = torch.tensor( [ 4,   6,   8,  12,  16, 20, 22 ], dtype = torch.float32 )
 Y = torch.tensor( [ 100, 100, 95, 75,  50, 20, 0  ], dtype = torch.float32 )
 
+system( "clear" )
 print( X )
 print( X.shape )
 print( Y )
 print( Y.shape )
+print( "*"*15 )
 
+X = X.reshape( -1, 1 )
+print( X )
+print( X.shape )
+print( "*"*15 )
+
+Y = Y.reshape( )
+print( Y )
+print( Y.shape )
+print( "*"*15 )
+
+Y = Y.reshape( -1, 1 )
+print( Y )
+print( Y.shape )
+print( "*"*15 )
 
 
 
