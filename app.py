@@ -23,10 +23,14 @@ print( X )
 print( X.shape )
 print( "*"*15 )
 
-Y = Y.reshape( )
+
+''' experimental code 
+Y = Y.reshape( -1 )
 print( Y )
 print( Y.shape )
 print( "*"*15 )
+
+'''
 
 Y = Y.reshape( -1, 1 )
 print( Y )
