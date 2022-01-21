@@ -42,10 +42,10 @@ for i in range( epoch ):
     optimizer.zero_grad()
     step_loss.backward()
     optimizer.step()
-    if i % 1500 == 0: 
+    if i % 1000 == 0: 
         print( f"epoch [{i}], Loss: {step_loss.item():.2f} " )
 
-#print( model.bias.item())
+print( model.bias.item())
 print( model.weight.item())
 
 #plt.plot( X, Y_pred.detach().numpy(), color = 'blue', linestyle = 'solid', linewidth = 1, marker = '*' )
