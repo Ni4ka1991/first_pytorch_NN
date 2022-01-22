@@ -20,33 +20,40 @@ Y = Y.reshape( -1, 1 )
 inputs  = 1
 outputs = 1
 rate = 0.0005
-epoch = 20_000
+epoch = 30_000
 
 model     = torch.nn.Sequential(\
-    torch.nn.Linear( 1, 8 ),\
+    torch.nn.Linear( 1, 9 ),\
     torch.nn.ReLU(),\
-    torch.nn.Linear( 8, 8 ),\
+    torch.nn.Linear( 9, 9 ),\
     torch.nn.ReLU(),\
-    torch.nn.Linear( 8, 1 ),\
+    torch.nn.Linear( 9, 1 ),\
 
 )
 
-loss      = torch.nn.MSELoss()
-optimizer = torch.optim.SGD( model.parameters(), lr = rate )
+loss      = torch.nn.MSELoss( reduction = "mean" )
+optimizer = torch.optim.Adam( model.parameters(), lr = rate )
 print( model )
 
 
 for i in range( epoch ):
+    for param in model.parameters():
+        param.grad = None
     Y_pred = model( X )
-    step_loss = loss( Y_pred, Y )
-    optimizer.zero_grad()
+    step_loss = loss( input = Y_pred, target = Y )
     step_loss.backward()
     optimizer.step()
-    if i % 1500 == 0: 
+    if i % 5_000 == 0: 
         print( f"epoch [{i}], Loss: {step_loss.item():.2f} " )
 
-#print( model.bias.item())
-print( model.weight.item())
+X1 = torch.tensor( [8], dtype = torch.float32 ).reshape( -1, 1 )
+Y1 = torch.tensor( [95], dtype = torch.float32 ).reshape( -1, 1 )
+Y_pred1 = model(X1).detach()
+
+X1 = torch.tensor( [7], dtype = torch.float32 ).reshape( -1, 1 )
+#Y1 = torch.tensor( [95], dtype = torch.float32 ).reshape( -1, 1 )
+Y_pred1 = model(X1).detach()
+print( X1, Y_pred1 )
 
 #plt.plot( X, Y_pred.detach().numpy(), color = 'blue', linestyle = 'solid', linewidth = 1, marker = '*' )
 #plt.plot( X, Y.detach().numpy(),      color = 'red',  linestyle = 'solid', linewidth = 1, marker = '*' )
